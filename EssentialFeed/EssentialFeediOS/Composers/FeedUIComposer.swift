@@ -17,28 +17,17 @@ public enum FeedUIComposer {
     ) -> FeedViewController {
         
         let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: MainQueueDispatchDecorator(feedLoader))
-       
-        let feedController = FeedViewController.makeWith(
-            delegate: presentationAdapter,
-            title: FeedPresenter.title
-        )
+        let feedController = FeedViewController.makeWith(delegate: presentationAdapter, title: FeedPresenter.title)
+        let feedViewAdapter = FeedViewAdapter(controller: feedController, imageLoader: MainQueueDispatchDecorator(imageLoader))
+        let presenter = FeedPresenter(feedView: feedViewAdapter, loadingView: WeakRefVirtualProxy(feedController), errorView: WeakRefVirtualProxy(feedController))
+        presentationAdapter.presenter = presenter
         
-        presentationAdapter.presenter = FeedPresenter(
-            feedView:  FeedViewAdapter(
-                controller: feedController,
-                imageLoader: MainQueueDispatchDecorator(imageLoader)
-            ),
-            loadingView: WeakRefVirtualProxy(feedController),
-            errorView: WeakRefVirtualProxy(feedController)
-        )
         return feedController
     }
 }
 
 extension FeedViewController: FeedErrorView {
-    public func display(_ viewModel: FeedErrorViewModel) {
-        
-    }
+    public func display(_ viewModel: FeedErrorViewModel) {}
 }
 
 
