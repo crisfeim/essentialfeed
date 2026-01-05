@@ -14,7 +14,7 @@ final class FeedImagePresentationAdapter: FeedImageCellControllerDelegate {
     private var task: FeedImageDataLoaderTask?
     private let model: FeedImage
     private let imageLoader: FeedImageDataLoader
-    var presenter: FeedImagePresenter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>?
+    var presenter: FeedImagePresenter<Weak<FeedImageCellController>, UIImage>?
     
     init(model: FeedImage, imageLoader: FeedImageDataLoader) {
         self.model = model
