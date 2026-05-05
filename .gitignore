@@ -1,6 +1,7 @@
 # Created by https://www.gitignore.io/api/swift,xcode
 .git.nosync
-
+tasks
+.tasks.done
 ### Swift ###
 # Xcode
 #
